@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: HatsuneMiku3939/direnv-action@v1
       - uses: c-py/action-dotenv-to-setenv@v3
         with:
           env-file: .makerc
@@ -31,9 +32,9 @@ jobs:
       - name: Docker Status
         run: docker ps -a
       - name: Setup Ingress K8S
-        run: make -s -C _run/kube kind-ingress-setup
+        run: (cd _run/kube; direnv allow; make kind-ingress-setup)
       - name: k8s-ingress
-        run: make -s -C _run/kube kind-k8s-ip
+        run: (cd _run/kube; direnv allow; make kind-k8s-ip)
       - name: Kube Environment
         run: |
           kubectl config view

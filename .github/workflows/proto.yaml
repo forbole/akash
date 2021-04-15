@@ -10,6 +10,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v2
+      - uses: HatsuneMiku3939/direnv-action@v1
       - uses: c-py/action-dotenv-to-setenv@v3
         with:
           env-file: .makerc
@@ -26,6 +27,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - uses: HatsuneMiku3939/direnv-action@v1
       - name: prepare master branch
         run: git checkout master
       - name: checkout back to GITHUB_SHA

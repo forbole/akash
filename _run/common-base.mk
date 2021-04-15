@@ -1,5 +1,7 @@
-AKASH_ROOT   := ../..
-AKASH_BIN   := $(AKASH_ROOT)/akash
+include $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../make/init.mk)
+
+#AKASH_ROOT  := $(ROOT_DIR)
+#AKASH_BIN   := $(AKASH_ROOT)/akash
 
 .PHONY: all
 all:

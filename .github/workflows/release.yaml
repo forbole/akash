@@ -18,6 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: git fetch --prune --unshallow
+      - uses: HatsuneMiku3939/direnv-action@v1
       - uses: c-py/action-dotenv-to-setenv@v3
         with:
           env-file: .makerc

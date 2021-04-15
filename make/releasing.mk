@@ -1,5 +1,13 @@
 GORELEASER_SKIP_VALIDATE ?= false
 
+GON_CONFIGFILE ?= gon.json
+
+ifeq ($(OS),Windows_NT)
+    DETECTED_OS := Windows
+else
+    DETECTED_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
+endif
+
 .PHONY: bins
 bins: $(BINS)
 
@@ -8,12 +16,21 @@ build:
 	$(GO) build ./...
 
 .PHONY: akash
-akash:
-	$(GO) build $(BUILD_FLAGS) ./cmd/akash
+akash: modvendor
+	@echo "$(CACHE_BIN)"
+	$(GO) build -o $(CACHE_BIN)/akash $(BUILD_FLAGS) ./cmd/akash
+#ifeq ($(DETECTED_OS),Darwin)
+#ifneq (, $(shell which gon 2>/dev/null))
+#ifneq ("$(wildcard $(GON_CONFIGFILE))","")
+#	@echo "signing akash binary for MacOS"
+#	gon $(GON_CONFIGFILE)
+#endif
+#endif
+#endif
 
 .PHONY: akash_docgen
-akash_docgen:
-	$(GO) build -o akash_docgen $(BUILD_FLAGS) ./docgen
+akash_docgen: $(CACHE)
+	$(GO) build -o $(CACHE_BIN)/akash_docgen $(BUILD_FLAGS) ./docgen
 
 .PHONY: install
 install:
