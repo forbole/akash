@@ -16,7 +16,7 @@ import (
 var (
 	serviceNameValidationRegex = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`)
 	envVarValidatorRegex       = regexp.MustCompile(`^[-._a-zA-Z][-._a-zA-Z0-9]*$`)
-	hostnameRegex              = regexp.MustCompile(`^[[:alnum:],-,\.]+\.[[:alpha:]]{2,}$`)
+	hostnameRegex              = regexp.MustCompile(`^[[:alnum:],\-,\.]+\.[[:alpha:]]{2,}$`)
 	hostnameMaxLen             = 255
 )
 
